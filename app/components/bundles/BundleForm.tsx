@@ -11,6 +11,7 @@ import {
 } from "@shopify/polaris";
 import { useState } from "react";
 import type { Bundle } from "../../types/bundle";
+import { ProductImageSelector } from "./ProductImageSelector";
 
 interface BundleFormProps {
   onSubmit: (data: Omit<Bundle, "id" | "createdAt" | "updatedAt">) => void;
@@ -31,7 +32,7 @@ export function BundleForm({
 }: BundleFormProps) {
   const [title, setTitle] = useState(initialData?.title || "");
   const [description, setDescription] = useState(initialData?.description || "");
-  const [imageUrl, setImageUrl] = useState(initialData?.imageUrl || "");
+  const [selectedImageUrl, setSelectedImageUrl] = useState(initialData?.imageUrl || "");
   const [discountedPrice, setDiscountedPrice] = useState(
     initialData?.discountedPrice?.toString() || ""
   );
@@ -42,7 +43,7 @@ export function BundleForm({
     onSubmit({
       title,
       description,
-      imageUrl,
+      imageUrl: selectedImageUrl,
       discountedPrice: parseFloat(discountedPrice),
       isActive,
       shopId,
@@ -83,12 +84,12 @@ export function BundleForm({
                   autoComplete="off"
                 />
 
-                <TextField
-                  label="Image URL"
-                  value={imageUrl}
-                  onChange={setImageUrl}
-                  autoComplete="off"
-                />
+                <div style={{ marginBottom: "1rem" }}>
+                  <ProductImageSelector
+                    onSelect={setSelectedImageUrl}
+                    selectedImageUrl={selectedImageUrl}
+                  />
+                </div>
 
                 <TextField
                   label="Discounted Price"

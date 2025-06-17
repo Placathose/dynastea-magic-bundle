@@ -1,28 +1,28 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "f322352e704313547bd0b75360af624a"
-application_url = "https://instrumental-outputs-compound-hidden.trycloudflare.com"
+application_url = "https://employers-sparc-darkness-about.trycloudflare.com"
 embedded = true
 name = "dynastea-magic-bundler"
 handle = "dynastea-magic-bundler"
 
 [build]
-include_config_on_deploy = true
-dev_store_url = "plant-dynasty.myshopify.com"
 automatically_update_urls_on_dev = true
+dev_store_url = "plant-dynasty.myshopify.com"
+include_config_on_deploy = true
 
 [webhooks]
 api_version = "2025-04"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = ""
+scopes = "read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://instrumental-outputs-compound-hidden.trycloudflare.com/auth/callback",
-  "https://instrumental-outputs-compound-hidden.trycloudflare.com/auth/shopify/callback",
-  "https://instrumental-outputs-compound-hidden.trycloudflare.com/api/auth/callback"
+  "https://employers-sparc-darkness-about.trycloudflare.com/auth/callback",
+  "https://employers-sparc-darkness-about.trycloudflare.com/auth/shopify/callback",
+  "https://employers-sparc-darkness-about.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

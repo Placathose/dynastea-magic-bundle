@@ -334,6 +334,61 @@ If you  are consistently getting this error, it could be that the clock on your 
 
 To fix this ensure you have enabled `Set time and date automatically` in the `Date and Time` settings on your computer.
 
+## Development Notes
+
+### Reinstalling the App
+When making changes to app scopes or permissions, you'll need to follow these steps:
+
+#### For Development Environment:
+1. Stop your development server (if running)
+2. Update scopes in two places:
+   - `shopify.app.dynastea-magic-bundler.toml` file
+   - `.env` file (SCOPES environment variable)
+3. Run `shopify app dev --reset` to reset the development environment
+4. Start the development server again with `shopify app dev`
+5. The app will prompt for reinstallation with new scopes
+
+#### For Production:
+1. Go to your Shopify admin panel (https://admin.shopify.com)
+2. Navigate to Apps > Installed apps
+3. Find "dynastea-magic-bundler" in the list
+4. Click on the app
+5. Click "Uninstall app" and confirm
+6. After uninstallation, you'll be redirected to reinstall the app
+7. Review and accept the new permissions
+8. The app will be reinstalled with the updated scopes
+
+**Note**: In development, simply uninstalling and reinstalling through the Shopify admin won't update the scopes. You must use the CLI commands to reset the development environment.
+
+### Issues and Solutions
+
+#### 1. Server-Only Module Reference Error
+**Problem**: When trying to create a bundle, we encountered a "Server-only module referenced by client" error because we were importing server-side code (`bundle.server`) directly in a client component.
+
+**Solution**: Restructured the code to use Remix's action function for server-side operations instead of direct server imports. This follows Remix's best practices for handling server-client code separation.
+
+#### 2. Product Image Selection Implementation
+**Problem**: Initially using a simple URL input for bundle images, we wanted to integrate with Shopify's product images.
+
+**Solution**: 
+- Added required Shopify scopes (`read_products,write_products`) to access product data
+- Created a new `ProductImageSelector` component for selecting product images
+- Implemented a dedicated API endpoint (`/app/api/product-images`) to fetch product images
+- Updated the bundle form to use the new image selector
+
+**Note**: After adding new scopes, the app needs to be reinstalled in the Shopify store to apply the new permissions.
+
+#### 3. Component Integration Issues
+**Problem**: Several Polaris component integration issues were encountered:
+- `ResourceItem` didn't accept a `selected` prop
+- `Text` component required an `as` prop
+- Authentication module path was incorrect
+
+**Solutions**:
+- Replaced `selected` prop with a styled wrapper div for selection indication
+- Added required `as="p"` prop to `Text` component
+- Fixed the import path for `shopify.server`
+
 ## Benefits
 
 Shopify apps are built on a variety of Shopify tools to create a great merchant experience.
